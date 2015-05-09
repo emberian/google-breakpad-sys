@@ -122,8 +122,8 @@ noinst_LIBRARIES += src/third_party/libdisasm/libdisasm.a
 endif
 
 if LINUX_HOST
-lib_LIBRARIES += src/client/linux/libbreakpad_client.a
-pkgconfig_DATA += breakpad-client.pc
+lib_LIBRARIES += src/client/linux/libbreakpad_client.a src/client/linux/libbreakpad_client_c.a
+pkgconfig_DATA += breakpad-client.pc breakpad-client-c.pc
 
 src_client_linux_libbreakpad_client_a_SOURCES = \
 	src/client/linux/crash_generation/crash_generation_client.cc \
@@ -152,6 +152,10 @@ if ANDROID_HOST
 src_client_linux_libbreakpad_client_a_SOURCES += \
 	src/common/android/breakpad_getcontext.S
 endif
+
+src_client_linux_libbreakpad_client_c_a_SOURCES = \
+	src/client/linux/breakpad_c.cc \
+	src/client/linux/libbreakpad_client.a
 endif LINUX_HOST
 
 if !DISABLE_PROCESSOR

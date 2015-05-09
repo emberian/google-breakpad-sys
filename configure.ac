@@ -153,6 +153,7 @@ AM_CONDITIONAL(SELFTEST, test x$selftest = xtrue)
 AC_CONFIG_FILES(m4_flatten([
   breakpad.pc
   breakpad-client.pc
+  breakpad-client-c.pc
   Makefile
 ]))
 

@@ -6582,7 +6582,7 @@ else
 fi
 
 
-ac_config_files="$ac_config_files breakpad.pc breakpad-client.pc Makefile"
+ac_config_files="$ac_config_files breakpad.pc breakpad-client.pc breakpad-client-c.pc Makefile"
 
 
 cat >confcache <<\_ACEOF
