@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <dbghelp.h>
 #include <rpc.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
