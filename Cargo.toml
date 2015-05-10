@@ -6,7 +6,7 @@ authors = ["Corey Richardson <corey@octayn.net>"]
 links = "breakpad_client_c"
 build = "build.rs"
 repository = "https://github.com/cmr/google-breakpad"
-license = "BSD"
+license = "BSD-3-Clause"
 description = "Native bindings to the google-breakpad library"
 
 [lib]
