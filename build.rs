@@ -44,6 +44,8 @@ fn main() {
     run(cmd.env("CXXFLAGS", &cflags)
            .env("CFLAGS", &cflags)
            .env("CPPFLAGS", &cflags)
+           .env("CC", "clang")
+           .env("CXX", "clang++")
            .arg(format!("--prefix={}", dst.display())), "configure");
 
     run(&mut Command::new("make"), "make");
