@@ -21,10 +21,11 @@ extern "C" {
     typedef struct breakpad_crash_generation_server breakpad_crash_generation_server;
     typedef struct breakpad_custom_client_info breakpad_custom_client_info;
     typedef struct breakpad_client_info breakpad_client_info;
+	typedef struct breakpad_md_raw_assertion_info breakpad_md_raw_assertion_info;
 
-    typedef bool (*breakpad_filter_cb)(void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInfo* assertion);
+	typedef bool(*breakpad_filter_cb)(void* context, EXCEPTION_POINTERS* exinfo, breakpad_md_raw_assertion_info* assertion);
     typedef bool (*breakpad_minidump_cb)(const wchar_t* dump_path, const wchar_t* minidump_id, void* context, EXCEPTION_POINTERS* exinfo,
-            MDRawAssertionInfo* assertion, bool succeeded);
+		breakpad_md_raw_assertion_info* assertion, bool succeeded);
 
     typedef void (*breakpad_on_client_connected_cb)(void* context,
             const breakpad_client_info* client_info);
@@ -40,16 +41,16 @@ extern "C" {
             const DWORD crash_id);
 
     breakpad_eh* breakpad_eh_create_in_process(const wchar_t* dump_path,
-            breakpad_filter_cb filter, breakpad_minidump_callback callback,
+            breakpad_filter_cb filter, breakpad_minidump_cb callback,
             void* callback_context, int handler_types);
 
     breakpad_eh* breakpad_eh_create_try_out_of_process(const wchar_t* dump_path,
-            breakpad_filter_cb filter, breakpad_minidump_callback callback,
+            breakpad_filter_cb filter, breakpad_minidump_cb callback,
             void* callback_context, int handler_types, MINIDUMP_TYPE dump_type,
             HANDLE pipe_handle, const breakpad_custom_client_info* custom_info);
 
     breakpad_eh* breakpad_eh_create_out_of_process(const wchar_t* dump_path,
-            breakpad_filter_cb filter, breakpad_minidump_callback callback,
+            breakpad_filter_cb filter, breakpad_minidump_cb callback,
             void* callback_context, int handler_types, breakpad_crash_generation_client* client);
 
     void breakpad_eh_destroy(breakpad_eh *eh);
@@ -68,9 +69,9 @@ extern "C" {
 
     void breakpad_eh_set_handle_debug_exceptions(breakpad_eh* eh, bool handle_debug_exceptions);
 
-    bool breakpad_eh_get_consume_invalid_handle_exceptions(const breakpad_eh *eh);
+    bool breakpad_eh_get_consume_invalid_handle_exceptions(const breakpad_eh* eh);
 
-    void breakpad_eh_set_consume_invalid_handle_exceptions(bool consume_invalid_handle_exceptions);
+    void breakpad_eh_set_consume_invalid_handle_exceptions(breakpad_eh* eh, bool consume_invalid_handle_exceptions);
 
     bool breakpad_eh_is_out_of_process(const breakpad_eh* eh);
 
@@ -88,7 +89,7 @@ extern "C" {
 
     bool breakpad_crash_generation_client_request_upload(breakpad_crash_generation_client* client, DWORD crash_id);
 
-    bool breakpad_crash_generation_client_request_dump(breakpad_crash_generation_client* client, EXCEPTION_POINTERS* ex_info, MDRawAssertionInfo* assert_info);
+	bool breakpad_crash_generation_client_request_dump(breakpad_crash_generation_client* client, EXCEPTION_POINTERS* ex_info, breakpad_md_raw_assertion_info* assert_info);
 
     breakpad_crash_generation_server* breakpad_crash_generation_server_create(const wchar_t* pipe_name,
             SECURITY_ATTRIBUTES* pipe_sec_attrs,

@@ -14,16 +14,16 @@ struct HandlerWrapperContext {
     HandlerWrapperContext(breakpad_filter_cb fcb, breakpad_minidump_cb mcb, void *context) : mcb(mcb), fcb(fcb), real_context(context) { }
 };
 
-static bool filter_callback_wrapper(void* context) {
+static bool filter_callback_wrapper(void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInfo* assertion) {
     HandlerWrapperContext* cont = reinterpret_cast<HandlerWrapperContext*>(context);
 
-    return cont->fcb ? cont->fcb(cont->real_context) : true;
+    return cont->fcb ? cont->fcb(cont->real_context, exinfo, reinterpret_cast<breakpad_md_raw_assertion_info*>(assertion)) : true;
 }
 
-static bool minidump_callback_wrapper(const MinidumpDescriptor& desc, void* context, bool succeeded) {
+static bool minidump_callback_wrapper(const wchar_t* dump_path, const wchar_t* minidump_id, void* context, EXCEPTION_POINTERS* exinfo, MDRawAssertionInfo* assertion, bool succeeded) {
     HandlerWrapperContext* cont = reinterpret_cast<HandlerWrapperContext*>(context);
 
-    return cont->mcb ? cont->mcb(reinterpret_cast<const breakpad_minidump_descriptor*>(&desc), cont->real_context, succeeded) : succeeded;
+	return cont->mcb ? cont->mcb(dump_path, minidump_id, cont->real_context, exinfo, reinterpret_cast<breakpad_md_raw_assertion_info*>(assertion), succeeded) : succeeded;
 }
 
 struct ServerWrapperContext {
@@ -78,7 +78,7 @@ static void connect_callback_wrapper(void* context, const ClientInfo* client_inf
 
 extern "C" {
     breakpad_eh* breakpad_eh_create_in_process(const wchar_t* dump_path,
-            breakpad_filter_cb filter, breakpad_minidump_callback callback,
+            breakpad_filter_cb filter, breakpad_minidump_cb callback,
             void* callback_context, int handler_types) {
 
         HandlerWrapperContext* cont = new HandlerWrapperContext(filter, callback, callback_context);
@@ -91,15 +91,16 @@ extern "C" {
     }
 
     breakpad_eh* breakpad_eh_create_try_out_of_process(const wchar_t* dump_path,
-            breakpad_filter_cb filter, breakpad_minidump_callback callback,
+            breakpad_filter_cb filter, breakpad_minidump_cb callback,
             void* callback_context, int handler_types, MINIDUMP_TYPE dump_type,
             HANDLE pipe_handle, const breakpad_custom_client_info* custom_info) {
 
         HandlerWrapperContext* cont = new HandlerWrapperContext(filter, callback, callback_context);
+		return reinterpret_cast<breakpad_eh*>(new ExceptionHandler(wstring(dump_path), filter_callback_wrapper, minidump_callback_wrapper, cont, handler_types, dump_type, pipe_handle, reinterpret_cast<const CustomClientInfo*>(custom_info)));
     }
 
     breakpad_eh* breakpad_eh_create_out_of_process(const wchar_t* dump_path,
-            breakpad_filter_cb filter, breakpad_minidump_callback callback,
+            breakpad_filter_cb filter, breakpad_minidump_cb callback,
             void* callback_context, int handler_types, breakpad_crash_generation_client* client) {
 
         HandlerWrapperContext* cont = new HandlerWrapperContext(filter, callback, callback_context);
@@ -109,7 +110,7 @@ extern "C" {
                     minidump_callback_wrapper,
                     cont,
                     handler_types,
-                    reinterpet_cast<CrashGenerationClient*>(client)));
+                    reinterpret_cast<CrashGenerationClient*>(client)));
     }
 
     void breakpad_eh_destroy(breakpad_eh *eh) {
@@ -129,7 +130,7 @@ extern "C" {
     }
 
     bool breakpad_eh_write_minidump_for_exception(breakpad_eh* eh, EXCEPTION_POINTERS* exinfo) {
-        return reinterpret_cast<ExceptionHandler&>(eh).WriteMinidump(exinfo);
+        return reinterpret_cast<ExceptionHandler&>(eh).WriteMinidumpForException(exinfo);
     }
 
     DWORD breakpad_eh_get_requesting_thread_id(const breakpad_eh* eh){
@@ -144,11 +145,11 @@ extern "C" {
         return reinterpret_cast<ExceptionHandler&>(eh).set_handle_debug_exceptions(handle_debug_exceptions);
     }
 
-    bool breakpad_eh_get_consume_invalid_handle_exceptions(const breakpad_eh *eh) {
+    bool breakpad_eh_get_consume_invalid_handle_exceptions(const breakpad_eh* eh) {
         return reinterpret_cast<ExceptionHandler&>(eh).get_consume_invalid_handle_exceptions();
     }
 
-    void breakpad_eh_set_consume_invalid_handle_exceptions(bool cihe) {
+    void breakpad_eh_set_consume_invalid_handle_exceptions(breakpad_eh* eh, bool cihe) {
         return reinterpret_cast<ExceptionHandler&>(eh).set_consume_invalid_handle_exceptions(cihe);
     }
 
@@ -170,7 +171,7 @@ extern "C" {
             MINIDUMP_TYPE dump_type,
             const breakpad_custom_client_info* custom_info) {
         return reinterpret_cast<breakpad_crash_generation_client*>(new CrashGenerationClient(pipe_handle,
-                    dump_type, reinterpret_cast<CustomClientInfo*>(custom_info)));
+                    dump_type, reinterpret_cast<const CustomClientInfo*>(custom_info)));
     }
 
     bool breakpad_crash_generation_client_register(breakpad_crash_generation_client* client) {
@@ -181,8 +182,8 @@ extern "C" {
         return reinterpret_cast<CrashGenerationClient&>(client).RequestUpload(crash_id);
     }
 
-    bool breakpad_crash_generation_client_request_dump(breakpad_crash_generation_client* client, EXCEPTION_POINTERS* ex_info, MDRawAssertionInfo* assert_info) {
-        return reinterpret_cast<CrashGenerationClient&>(client).RequestDump(ex_info, assert_info);
+    bool breakpad_crash_generation_client_request_dump(breakpad_crash_generation_client* client, EXCEPTION_POINTERS* ex_info, breakpad_md_raw_assertion_info* assert_info) {
+        return reinterpret_cast<CrashGenerationClient&>(client).RequestDump(ex_info, reinterpret_cast<MDRawAssertionInfo*>(assert_info));
     }
 
     breakpad_crash_generation_server* breakpad_crash_generation_server_create(const wchar_t* pipe_name,
@@ -203,7 +204,7 @@ extern "C" {
 
         return reinterpret_cast<breakpad_crash_generation_server*>(new CrashGenerationServer(wstring(pipe_name),
                     pipe_sec_attrs, connect_callback_wrapper, cont, dump_request_callback_wrapper, cont,
-                    exit_callback_wrapper, cont, upload_callback_wrapper, cont, generation_dumps, new wstring(dump_path)));
+                    exit_callback_wrapper, cont, upload_callback_wrapper, cont, generate_dumps, new wstring(dump_path)));
     }
 
     bool breakpad_crash_generation_server_start(breakpad_crash_generation_server* server) {
