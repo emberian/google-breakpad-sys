@@ -16,5 +16,11 @@ path = "lib.rs"
 [dependencies]
 libc = "*"
 
+[target.x86_64-pc-windows-gnu.dependencies]
+winapi = "*"
+
+[target.i686-pc-windows-gnu.dependencies]
+winapi = "*"
+
 [build-dependencies]
 pkg-config = "*"
