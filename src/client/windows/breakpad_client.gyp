@@ -61,6 +61,22 @@
         '<(DEPTH)/common/windows/http_upload.h',
         '<(DEPTH)/common/windows/string_utils.cc',
       ]
-    }
+    },
+    {
+      'target_name': 'breakpad_c',
+      'type': 'static_library',
+      'include_dirs': [
+        '<(DEPTH)',
+      ],
+      'direct_dependent_settings': {
+        'include_dirs': [
+          '<(DEPTH)',
+        ]
+      },
+      'sources': [
+        './breakpad_c.h',
+      './breakpad_c.cc',
+      ]
+    },
   ]
 }
