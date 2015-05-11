@@ -42,5 +42,11 @@ src/testing
 src/third_party/glog
 src/third_party/protobuf
 src/tools/gyp
+
+# Rust
 target
 Cargo.lock
+
+# Xcode
+xcuserdata
+project.xcworkspace

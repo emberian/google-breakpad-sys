@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -77,6 +77,8 @@
 		8B3102EB11F0D78000FCF3E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		8B31FC8211EFD2B800FCF3E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+		C7631FCA1B0114DD00473ECB /* breakpad_c.cc in Sources */ = {isa = PBXBuildFile; fileRef = C7631FC81B0114DD00473ECB /* breakpad_c.cc */; };
+		C7631FCB1B0114DD00473ECB /* breakpad_c.h in Headers */ = {isa = PBXBuildFile; fileRef = C7631FC91B0114DD00473ECB /* breakpad_c.h */; };
 		D23F4B2E12A7E13200686C8D /* minidump_generator_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = D23F4B2C12A7E13200686C8D /* minidump_generator_test.cc */; };
 		D23F4B3312A7E17700686C8D /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F9A41512131EF0002747C1 /* libgtest.a */; };
 		D23F4BB112A868CB00686C8D /* minidump_generator_test_helper.cc in Sources */ = {isa = PBXBuildFile; fileRef = D23F4B9A12A8688800686C8D /* minidump_generator_test_helper.cc */; };
@@ -115,9 +117,6 @@
 		D2C1DBE612AFC270006917BD /* pathname_stripper.cc in Sources */ = {isa = PBXBuildFile; fileRef = D244535312426EBB009BBCE0 /* pathname_stripper.cc */; };
 		D2C1DBE712AFC270006917BD /* basic_code_modules.cc in Sources */ = {isa = PBXBuildFile; fileRef = D244534F12426E98009BBCE0 /* basic_code_modules.cc */; };
 		D2F9A3D51212F87C002747C1 /* exception_handler_test.cc in Sources */ = {isa = PBXBuildFile; fileRef = D2F9A3D41212F87C002747C1 /* exception_handler_test.cc */; };
-		D2F9A43D12131F55002747C1 /* gmock-all.cc in Sources */ = {isa = PBXBuildFile; fileRef = D2F9A43C12131F55002747C1 /* gmock-all.cc */; };
-		D2F9A44012131F65002747C1 /* gtest_main.cc in Sources */ = {isa = PBXBuildFile; fileRef = D2F9A43E12131F65002747C1 /* gtest_main.cc */; };
-		D2F9A44112131F65002747C1 /* gtest-all.cc in Sources */ = {isa = PBXBuildFile; fileRef = D2F9A43F12131F65002747C1 /* gtest-all.cc */; };
 		D2F9A44412131F84002747C1 /* libgtest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2F9A41512131EF0002747C1 /* libgtest.a */; };
 		D2F9A4C9121336C7002747C1 /* client_info.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F9A4C4121336C7002747C1 /* client_info.h */; };
 		D2F9A4CA121336C7002747C1 /* crash_generation_client.h in Headers */ = {isa = PBXBuildFile; fileRef = D2F9A4C5121336C7002747C1 /* crash_generation_client.h */; };
@@ -212,7 +211,7 @@
 		F9C44DBC0EF072A0003AEBAA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F9C44DB80EF072A0003AEBAA /* InfoPlist.strings */; };
 		F9C44DBD0EF072A0003AEBAA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9C44DBA0EF072A0003AEBAA /* MainMenu.xib */; };
 		F9C44E000EF077CD003AEBAA /* Breakpad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Breakpad.framework */; };
-		F9C44E3C0EF08B12003AEBAA /* Breakpad.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Breakpad.framework */; };
+		F9C44E3C0EF08B12003AEBAA /* Breakpad.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* Breakpad.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		F9C44E980EF09F56003AEBAA /* crash_report_sender.app in Resources */ = {isa = PBXBuildFile; fileRef = F92C56A00ECE04A7009BE4BA /* crash_report_sender.app */; };
 		F9C44EA20EF09F93003AEBAA /* HTTPMultipartUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = F92C53770ECCE635009BE4BA /* HTTPMultipartUpload.m */; };
 		F9C44EE50EF0A006003AEBAA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9C44EE40EF0A006003AEBAA /* SystemConfiguration.framework */; };
@@ -588,6 +587,8 @@
 		8B31027811F0D3AF00FCF3E4 /* BreakpadRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = BreakpadRelease.xcconfig; path = ../../common/mac/BreakpadRelease.xcconfig; sourceTree = SOURCE_ROOT; };
 		8B31FFF611F0C90500FCF3E4 /* Breakpad.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Breakpad.xcconfig; path = ../../common/mac/Breakpad.xcconfig; sourceTree = SOURCE_ROOT; };
 		8DC2EF5B0486A6940098B216 /* Breakpad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Breakpad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7631FC81B0114DD00473ECB /* breakpad_c.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = breakpad_c.cc; sourceTree = "<group>"; };
+		C7631FC91B0114DD00473ECB /* breakpad_c.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = breakpad_c.h; sourceTree = "<group>"; };
 		D23F4B2C12A7E13200686C8D /* minidump_generator_test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = minidump_generator_test.cc; path = tests/minidump_generator_test.cc; sourceTree = "<group>"; };
 		D23F4B9A12A8688800686C8D /* minidump_generator_test_helper.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = minidump_generator_test_helper.cc; path = tests/minidump_generator_test_helper.cc; sourceTree = "<group>"; };
 		D23F4BAB12A868A500686C8D /* minidump_generator_test_helper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = minidump_generator_test_helper; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -598,9 +599,6 @@
 		D244540A12439BA0009BBCE0 /* memory_unittest.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = memory_unittest.cc; path = ../../common/memory_unittest.cc; sourceTree = SOURCE_ROOT; };
 		D2F9A3D41212F87C002747C1 /* exception_handler_test.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = exception_handler_test.cc; path = tests/exception_handler_test.cc; sourceTree = "<group>"; };
 		D2F9A41512131EF0002747C1 /* libgtest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgtest.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2F9A43C12131F55002747C1 /* gmock-all.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "gmock-all.cc"; path = "../../testing/src/gmock-all.cc"; sourceTree = SOURCE_ROOT; };
-		D2F9A43E12131F65002747C1 /* gtest_main.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gtest_main.cc; path = ../../testing/gtest/src/gtest_main.cc; sourceTree = "<group>"; };
-		D2F9A43F12131F65002747C1 /* gtest-all.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "gtest-all.cc"; path = "../../testing/gtest/src/gtest-all.cc"; sourceTree = "<group>"; };
 		D2F9A4C4121336C7002747C1 /* client_info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = client_info.h; path = crash_generation/client_info.h; sourceTree = "<group>"; };
 		D2F9A4C5121336C7002747C1 /* crash_generation_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crash_generation_client.h; path = crash_generation/crash_generation_client.h; sourceTree = "<group>"; };
 		D2F9A4C6121336C7002747C1 /* crash_generation_client.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crash_generation_client.cc; path = crash_generation/crash_generation_client.cc; sourceTree = "<group>"; };
@@ -847,7 +845,6 @@
 		0867D691FE84028FC02AAC07 /* Breakpad */ = {
 			isa = PBXGroup;
 			children = (
-				D2F9A43812131F3B002747C1 /* gtest */,
 				8B31FFF611F0C90500FCF3E4 /* Breakpad.xcconfig */,
 				8B31027711F0D3AF00FCF3E4 /* BreakpadDebug.xcconfig */,
 				8B31027811F0D3AF00FCF3E4 /* BreakpadRelease.xcconfig */,
@@ -903,16 +900,6 @@
 				D244534F12426E98009BBCE0 /* basic_code_modules.cc */,
 			);
 			name = processor;
-			sourceTree = "<group>";
-		};
-		D2F9A43812131F3B002747C1 /* gtest */ = {
-			isa = PBXGroup;
-			children = (
-				D2F9A43E12131F65002747C1 /* gtest_main.cc */,
-				D2F9A43F12131F65002747C1 /* gtest-all.cc */,
-				D2F9A43C12131F55002747C1 /* gmock-all.cc */,
-			);
-			name = gtest;
 			sourceTree = "<group>";
 		};
 		F92C53590ECCE3BB009BE4BA /* handler */ = {
@@ -1004,6 +991,8 @@
 				F92C55CD0ECD0053009BE4BA /* Framework */,
 				F92C53B50ECCE799009BE4BA /* crash_generation */,
 				F92C53590ECCE3BB009BE4BA /* handler */,
+				C7631FC81B0114DD00473ECB /* breakpad_c.cc */,
+				C7631FC91B0114DD00473ECB /* breakpad_c.h */,
 			);
 			name = mac;
 			sourceTree = "<group>";
@@ -1156,6 +1145,7 @@
 				D2F9A4CC121336C7002747C1 /* crash_generation_server.h in Headers */,
 				163201D61443019E00C4DBF5 /* ConfigFile.h in Headers */,
 				16C7C918147D45AE00776EAD /* BreakpadDefines.h in Headers */,
+				C7631FCB1B0114DD00473ECB /* breakpad_c.h in Headers */,
 				162F64F3161C577500CD68D5 /* arch_utilities.h in Headers */,
 				F4DAB1DE19F1027100A5A838 /* launch_reporter.h in Headers */,
 				1EEEB6241720829E00F7E689 /* simple_string_dictionary.h in Headers */,
@@ -1401,8 +1391,12 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastTestingUpgradeCheck = 0630;
+				LastUpgradeCheck = 0630;
+			};
 			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "Breakpad" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1680,6 +1674,7 @@
 				F92C56630ECD1179009BE4BA /* exception_handler.cc in Sources */,
 				F92C55D10ECD0064009BE4BA /* Breakpad.mm in Sources */,
 				F4DAB1DD19F1027100A5A838 /* launch_reporter.cc in Sources */,
+				C7631FCA1B0114DD00473ECB /* breakpad_c.cc in Sources */,
 				F92C56340ECD0DF1009BE4BA /* OnDemandServer.mm in Sources */,
 				D2F9A4CB121336C7002747C1 /* crash_generation_client.cc in Sources */,
 				D2F9A4CD121336C7002747C1 /* crash_generation_server.cc in Sources */,
@@ -1717,9 +1712,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2F9A43D12131F55002747C1 /* gmock-all.cc in Sources */,
-				D2F9A44012131F65002747C1 /* gtest_main.cc in Sources */,
-				D2F9A44112131F65002747C1 /* gtest-all.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2095,11 +2087,13 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Framework/Breakpad_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -2111,11 +2105,13 @@
 		1DEB91AF08733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Framework/Breakpad_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -2129,7 +2125,8 @@
 			baseConfigurationReference = 8B31027711F0D3AF00FCF3E4 /* BreakpadDebug.xcconfig */;
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				SDKROOT = macosx10.5;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -2138,6 +2135,7 @@
 			baseConfigurationReference = 8B31027811F0D3AF00FCF3E4 /* BreakpadRelease.xcconfig */;
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -2150,6 +2148,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
@@ -2163,6 +2162,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
@@ -2178,6 +2178,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INSTALL_PATH = /usr/local/bin;
 				PREBINDING = NO;
@@ -2190,9 +2191,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../../testing,
@@ -2209,6 +2212,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../../testing,
@@ -2225,9 +2230,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					../../testing,
@@ -2248,6 +2255,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "BP_LOGGING_INCLUDE=\\\"client/mac/tests/testlogging.h\\\"";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../..,
 					../../testing,
@@ -2266,6 +2274,7 @@
 		D2F9A544121383A1002747C1 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../..,
 					../../testing,
@@ -2284,6 +2293,7 @@
 		D2F9A545121383A1002747C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../..,
 					../../testing,
@@ -2302,6 +2312,7 @@
 		F92C53560ECCE34A009BE4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				PRODUCT_NAME = Inspector;
 			};
@@ -2310,6 +2321,7 @@
 		F92C53570ECCE34A009BE4BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				PRODUCT_NAME = Inspector;
 			};
@@ -2318,8 +2330,10 @@
 		F92C563D0ECD10B3009BE4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Resources/$(EXECUTABLE_PATH)";
 				OTHER_LDFLAGS = (
@@ -2333,8 +2347,10 @@
 		F92C563E0ECD10B3009BE4BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Resources/$(EXECUTABLE_PATH)";
 				OTHER_LDFLAGS = (
@@ -2348,6 +2364,8 @@
 		F92C56A30ECE04A8009BE4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = "sender/crash_report_sender-Info.plist";
 				PRODUCT_NAME = crash_report_sender;
@@ -2357,6 +2375,8 @@
 		F92C56A40ECE04A8009BE4BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = "sender/crash_report_sender-Info.plist";
 				PRODUCT_NAME = crash_report_sender;
@@ -2367,6 +2387,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = "BP_LOGGING_INCLUDE=\\\"client/mac/tests/testlogging.h\\\"";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../..,
 					../../..,
@@ -2382,6 +2403,7 @@
 		F93803C10F808210004D428B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../..,
 					../../..,
@@ -2397,6 +2419,7 @@
 		F93DE2D30F82A67400608B94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				PRODUCT_NAME = minidump_file_writer_unittest;
 			};
@@ -2405,6 +2428,7 @@
 		F93DE2D40F82A67400608B94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				PRODUCT_NAME = minidump_file_writer_unittest;
 			};
@@ -2417,6 +2441,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "BP_LOGGING_INCLUDE=\\\"client/mac/tests/testlogging.h\\\"";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../../..,
 					../..,
@@ -2436,6 +2461,7 @@
 		F93DE32F0F82C55700608B94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../../..,
 					../..,
@@ -2457,17 +2483,20 @@
 			baseConfigurationReference = 8B31027711F0D3AF00FCF3E4 /* BreakpadDebug.xcconfig */;
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				SDKROOT = macosx;
 			};
 			name = "Debug With Code Coverage";
 		};
 		F93DE3BA0F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Framework/Breakpad_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = Framework/Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -2479,6 +2508,7 @@
 		F93DE3BB0F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				PRODUCT_NAME = Inspector;
 			};
@@ -2487,8 +2517,10 @@
 		F93DE3BC0F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				LD_DYLIB_INSTALL_NAME = "@executable_path/../Resources/$(EXECUTABLE_PATH)";
 				OTHER_LDFLAGS = (
@@ -2502,6 +2534,8 @@
 		F93DE3BD0F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = "sender/crash_report_sender-Info.plist";
 				PRODUCT_NAME = crash_report_sender;
@@ -2511,7 +2545,9 @@
 		F93DE3BE0F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/build/$(CONFIGURATION)";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = testapp/Info.plist;
 				PRODUCT_NAME = BreakpadTest;
 			};
@@ -2520,6 +2556,7 @@
 		F93DE3BF0F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = All;
 			};
 			name = "Debug With Code Coverage";
@@ -2527,11 +2564,13 @@
 		F93DE3C00F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				PRODUCT_NAME = UnitTests;
@@ -2542,6 +2581,7 @@
 		F93DE3C10F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../..,
 					../../..,
@@ -2557,6 +2597,7 @@
 		F93DE3C20F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = ../..;
 				PRODUCT_NAME = minidump_file_writer_unittest;
 			};
@@ -2565,6 +2606,7 @@
 		F93DE3C30F830E7000608B94 /* Debug With Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					../../..,
 					../..,
@@ -2584,6 +2626,7 @@
 		F94585850F782326009A47BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = All;
 			};
 			name = Debug;
@@ -2591,6 +2634,7 @@
 		F94585860F782326009A47BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				PRODUCT_NAME = All;
 			};
 			name = Release;
@@ -2598,7 +2642,9 @@
 		F9C44DA80EF060A8003AEBAA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/build/$(CONFIGURATION)";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = testapp/Info.plist;
 				PRODUCT_NAME = BreakpadTest;
 			};
@@ -2607,7 +2653,9 @@
 		F9C44DA90EF060A8003AEBAA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/build/$(CONFIGURATION)";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = testapp/Info.plist;
 				PRODUCT_NAME = BreakpadTest;
 			};
@@ -2616,11 +2664,13 @@
 		F9C77DDC0F7DD5D00045F7DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				PRODUCT_NAME = UnitTests;
 				WRAPPER_EXTENSION = octest;
@@ -2630,11 +2680,13 @@
 		F9C77DDD0F7DD5D00045F7DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
 				);
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "UnitTests-Info.plist";
 				PRODUCT_NAME = UnitTests;
 				WRAPPER_EXTENSION = octest;

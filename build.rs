@@ -34,13 +34,15 @@ fn main() {
     let dst = PathBuf::from(&env::var("OUT_DIR").unwrap());
 
     if mingw {
-        println!("cargo:rustc-link-search=native={}/binaries", src.display());
+        println!("cargo:rustc-link-search=native={}/binaries/windows", src.display());
         println!("cargo:rustc-link-lib=static=breakpad_client_{}_mingw",
             if target.contains("i686") { "x86" } else { "x64" });
         return;
     }
     if target.contains("apple") {
-        panic!("OS X building not supported!");
+        println!("cargo:rustc-link-search=framework={}/binaries/osx", src.display());
+        println!("cargo:rustc-link-lib=framework=Breakpad");
+        return;
     }
 
 
