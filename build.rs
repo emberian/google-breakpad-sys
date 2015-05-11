@@ -30,15 +30,19 @@ fn main() {
         cflags.push_str(" -fPIC");
     }
 
+    let src = PathBuf::from(&env::var("CARGO_MANIFEST_DIR").unwrap());
+    let dst = PathBuf::from(&env::var("OUT_DIR").unwrap());
+
     if mingw {
-        panic!("Windows building not supported!");
+        println!("cargo:rustc-link-search=native={}/binaries", src.display());
+        println!("cargo:rustc-link-lib=static=breakpad_client_{}_mingw",
+            if target.contains("i686") { "x86" } else { "x64" });
+        return;
     }
     if target.contains("apple") {
         panic!("OS X building not supported!");
     }
 
-    let src = PathBuf::from(&env::var("CARGO_MANIFEST_DIR").unwrap());
-    let dst = PathBuf::from(&env::var("OUT_DIR").unwrap());
 
     let mut cmd = Command::new("./configure");
     run(cmd.env("CXXFLAGS", &cflags)

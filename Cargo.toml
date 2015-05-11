@@ -3,7 +3,7 @@
 name = "libbreakpad-client-sys"
 version = "0.1.0"
 authors = ["Corey Richardson <corey@octayn.net>"]
-links = "breakpad_client_c"
+links = "breakpad_client"
 build = "build.rs"
 repository = "https://github.com/cmr/google-breakpad"
 license = "BSD-3-Clause"
